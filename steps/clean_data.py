@@ -9,6 +9,7 @@ from src.data_cleaning import (
 from typing_extensions import Annotated
 from zenml import step
 
+
 @step
 def clean_data(
     data: pd.DataFrame,

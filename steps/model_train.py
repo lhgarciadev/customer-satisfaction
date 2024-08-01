@@ -1,4 +1,5 @@
 import logging
+
 import mlflow
 import pandas as pd
 from src.model_dev import (
@@ -11,9 +12,11 @@ from src.model_dev import (
 from sklearn.base import RegressorMixin
 from zenml import step
 from zenml.client import Client
-from steps.config import ModelNameConfig
+
+from .config import ModelNameConfig
 
 experiment_tracker = Client().active_stack.experiment_tracker
+
 
 @step(experiment_tracker=experiment_tracker.name)
 def train_model(
@@ -54,7 +57,7 @@ def train_model(
         tuner = HyperparameterTuner(model, x_train, y_train, x_test, y_test)
 
         if config.fine_tuning:
-            best_params = tuner.optimize(n_trials=5)
+            best_params = tuner.optimize()
             trained_model = model.train(x_train, y_train, **best_params)
         else:
             trained_model = model.train(x_train, y_train)

@@ -2,6 +2,7 @@ import logging
 import pandas as pd
 from zenml import step
 
+
 class IngestData:
     """
     Data ingestion class which ingests data from the source and returns a DataFrame.
@@ -14,6 +15,7 @@ class IngestData:
     def get_data(self) -> pd.DataFrame:
         df = pd.read_csv("./data/olist_customers_dataset.csv")
         return df
+
 
 @step
 def ingest_data() -> pd.DataFrame:
